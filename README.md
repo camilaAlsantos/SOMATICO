@@ -25,7 +25,7 @@ Paciente 2: tumor_wp190.bam (Tumor) e tumor_wp191.bam (Normal)
 
 [x] Recursos Populacionais: Ficheiro af-only-gnomad-chr13-chr19.vcf.gz (usado para filtrar mutações comuns na população).
 
-### 📥 Passo 0: Obtendo os Ficheiros BAM (Amostras)
+### Passo 0: Obtendo os Ficheiros BAM (Amostras)
 
 Os ficheiros de sequenciação brutos (`.bam` e `.bai`) são pesados e já se encontram preparados e alojados no repositório oficial do curso. 
 
@@ -36,7 +36,7 @@ Para aceder a estes dados, os alunos têm duas opções:
 Esta é a forma mais fácil e rápida, pois não requer instalação no seu computador.
 
 1. Aceda ao repositório base: [renatopuga/somatico](https://github.com/renatopuga/somatico).
-2. Clique no botão verde **`<> Code`**.
+2. Clique no botão **`<> Code`**.
 3. Mude para o separador **Codespaces** e clique no botão **`+`** ou **Create codespace on main**.
 4. *Dica de Ouro:* Nas configurações da máquina, escolha a opção **4-core** para que os algoritmos de alinhamento processem mais rapidamente.
 
@@ -44,10 +44,7 @@ Esta é a forma mais fácil e rápida, pois não requer instalação no seu comp
 <br>
 Se preferir rodar o pipeline na sua própria máquina (precisa do GATK e Samtools instalados), faça o clone direto do repositório através do terminal:
 
-```diff
-+ Esta linha inteira vai ficar verde no GitHub!
-- Se usar um sinal de menos, a linha fica vermelha.
-  E sem sinal, fica com a cor normal.
+```
 bash
 # Clonar o repositório com os ficheiros BAM
 git clone [https://github.com/renatopuga/somatico.git](https://github.com/renatopuga/somatico.git)
@@ -183,4 +180,4 @@ Para a amostra WP190:
 zgrep -v "^#" WP190.filtered.vcf.gz | grep -w "PASS" | wc -l
 
 
-# Curiosidade: Experimente remover a secção | grep -w "PASS" dos comandos acima para ver o total absoluto de variantes encontradas inicialmente. A diferença entre esse número e o resultado final prova o excelente trabalho do GATK a limpar falsos positivos e "ruído" genético!
+### Curiosidade: Experimente remover a secção | grep -w "PASS" dos comandos acima para ver o total absoluto de variantes encontradas inicialmente. A diferença entre esse número e o resultado final prova o excelente trabalho do GATK a limpar falsos positivos e "ruído" genético!
