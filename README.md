@@ -39,7 +39,7 @@ Se preferir rodar o pipeline na sua própria máquina (precisa do GATK e Samtool
 
 ```bash
 # Clonar o repositório com os ficheiros BAM
-https://github.com/renatopuga/somatico.git
+git clone https://github.com/renatopuga/somatico.git
 # Entrar na pasta do projeto
 cd somatico
 ```
