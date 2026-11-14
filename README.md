@@ -37,10 +37,9 @@ Esta é a forma mais fácil e rápida, pois não requer instalação no seu comp
 
 Se preferir rodar o pipeline na sua própria máquina (precisa do GATK e Samtools instalados), faça o clone direto do repositório através do terminal:
 
-```
-bash
+```bash
 # Clonar o repositório com os ficheiros BAM
-git clone [https://github.com/renatopuga/somatico.git](https://github.com/renatopuga/somatico.git)
+[git clone](https://github.com/renatopuga/somatico.git)
 # Entrar na pasta do projeto
 cd somatico
 ```
@@ -217,4 +216,4 @@ bash
 zgrep -v "^#" WP190.filtered.vcf.gz | grep -w "PASS" | wc -l
 ```
 
-### Curiosidade: Experimente remover a secção | grep -w "PASS" dos comandos acima para ver o total absoluto de variantes encontradas inicialmente. A diferença entre esse número e o resultado final prova o excelente trabalho do GATK a limpar falsos positivos e "ruído" genético!
+
