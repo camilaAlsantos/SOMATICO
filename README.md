@@ -39,7 +39,7 @@ Se preferir rodar o pipeline na sua própria máquina (precisa do GATK e Samtool
 
 ```bash
 # Clonar o repositório com os ficheiros BAM
-[git clone](https://github.com/renatopuga/somatico.git)
+https://github.com/renatopuga/somatico.git
 # Entrar na pasta do projeto
 cd somatico
 ```
@@ -121,8 +121,7 @@ bash
 
 # Cálculo Final
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk CalculateContamination \
   -I WP017.table \
   -matched WP018.table \
@@ -132,8 +131,7 @@ bash
 ## Filtragem Final:
 Aplica os carimbos de aprovação (PASS) ou motivos de rejeição cruzando as variantes com o cálculo de contaminação.
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk FilterMutectCalls \
   -R hg19.fa \
   -V WP017.somatic.vcf.gz \
@@ -147,8 +145,7 @@ Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica
 
 ### 1. Mutect2
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk Mutect2 \
   -R hg19.fa \
   -I tumor_wp190.bam \
@@ -161,8 +158,7 @@ bash
 
 ### 2. Resumos de Contaminação
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk GetPileupSummaries \
   -I tumor_wp190.bam \
   -V af-only-gnomad-chr13-chr19.vcf.gz \
@@ -170,8 +166,7 @@ bash
   -O WP190.table
 ```
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk GetPileupSummaries \
   -I tumor_wp191.bam \
   -V af-only-gnomad-chr13-chr19.vcf.gz \
@@ -179,8 +174,7 @@ bash
   -O WP191.table
  ``` 
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk CalculateContamination \
   -I WP190.table \
   -matched WP191.table \
@@ -189,8 +183,7 @@ bash
 
 ### 3. Filtragem Final
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk FilterMutectCalls \
   -R hg19.fa \
   -V WP190.somatic.vcf.gz \
@@ -204,15 +197,13 @@ Depois de gerar os seus ficheiros filtered.vcf.gz, pode ver o impacto prático d
 
 Para a amostra WP017:
 
-```
-bash
+```bash
 zgrep -v "^#" WP017.filtered.vcf.gz | grep -w "PASS" | wc -l
 ```
 
 Para a amostra WP190:
 
-```
-bash
+```bash
 zgrep -v "^#" WP190.filtered.vcf.gz | grep -w "PASS" | wc -l
 ```
 
