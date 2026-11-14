@@ -18,13 +18,13 @@ Paciente 2: tumor_wp190.bam (Tumor) e tumor_wp191.bam (Normal)
 
 [x] Recursos Populacionais: Ficheiro af-only-gnomad-chr13-chr19.vcf.gz (usado para filtrar mutações comuns na população).
 
-### Passo 1: Obtendo os Ficheiros BAM (Amostras)
+## Passo 1: Obtendo os Ficheiros BAM (Amostras)
 
 Os ficheiros de sequenciação brutos (`.bam` e `.bai`) são pesados e já se encontram preparados e alojados no repositório oficial do curso. 
 
 Para aceder a estes dados, os alunos têm duas opções:
 
-#### Opção A: Utilizar o GitHub Codespaces
+### Opção A: Utilizar o GitHub Codespaces
 
 Esta é a forma mais fácil e rápida, pois não requer instalação no seu computador.
 
@@ -33,7 +33,7 @@ Esta é a forma mais fácil e rápida, pois não requer instalação no seu comp
 3. Mude para o separador **Codespaces** e clique no botão **`+`** ou **Create codespace on main**.
 4. *Dica de Ouro:* Nas configurações da máquina, escolha a opção **4-core** para que os algoritmos de alinhamento processem mais rapidamente.
 
-#### Opção B: Clonar para o seu Computador Local (Linux/Mac)
+### Opção B: Clonar para o seu Computador Local (Linux/Mac)
 
 Se preferir rodar o pipeline na sua própria máquina (precisa do GATK e Samtools instalados), faça o clone direto do repositório através do terminal:
 
