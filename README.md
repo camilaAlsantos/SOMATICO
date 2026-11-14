@@ -50,8 +50,7 @@ O algoritmo GATK é estrito quanto à formatação. Ele requer um mapa genómico
 
 ### Descarregar os cromossomas alvo da UCSC:
 
-```
-bash
+```bash
 wget -c https://hgdownload.soe.ucsc.edu/goldenPath/hg19/chromosomes/chr19.fa.gz
 wget -c https://hgdownload.soe.ucsc.edu/goldenPath/hg19/chromosomes/chr13.fa.gz
 ```
@@ -72,13 +71,15 @@ samtools faidx hg19.fa
 ./gatk-4.2.2.0/gatk ScatterIntervalsByNs -R hg19.fa -O hg19.interval_list -OT ACGT
 ```
 
-## Passo 3: Execução do Pipeline 
+## Passo 3: Execução do Pipeline Somático 
+
+A análise compara o tecido tumoral com o tecido saudável do próprio paciente ao comparar o DNA do Tumor com o DNA do Tecido Saudável (Normal). Dessa forma subtraímos o "ruído genético" base do paciente.
 
 ### Paciente WP017
 
-A análise "Padrão Ouro" compara o tecido tumoral com o tecido saudável do próprio paciente para filtrar, com elevada precisão, as mutações genéticas germinativas (de nascença).
-
 #### Chamada de Variantes (Mutect2):
+
+O Mutect2 atua como um detetive altamente sensível. Ele analisa o tumor, usa o tecido normal como controlo negativo e cruza os dados com o gnomAD para calcular a probabilidade prévia de uma mutação ser apenas uma característica humana comum.
 
 ```bash
 ./gatk-4.2.2.0/gatk Mutect2 \
@@ -90,9 +91,10 @@ A análise "Padrão Ouro" compara o tecido tumoral com o tecido saudável do pr�
   -O WP017.somatic.vcf.gz \
   -L hg19.interval_list
 ```
+_Este comando gera um ficheiro bruto com milhares de variantes suspeitas, mas muitas são falsos positivos que serão limpos nas etapas seguintes_
 
 #### Avaliação de Contaminação Laboratorial:
-Calcula matematicamente a percentagem de ADN externo ou contaminação técnica na amostra.
+No laboratório, o DNA microscópico de um tubo pode acidentalmente contaminar outro. O GATK avalia posições genómicas muito comuns (usando o GetPileupSummaries) e calcula matematicamente a fração de DNA alienígena na amostra (CalculateContamination).
 
 ##### Sumário do Tumor
 
@@ -124,7 +126,7 @@ Calcula matematicamente a percentagem de ADN externo ou contaminação técnica 
 ```
 
 #### Filtragem Final:
-Aplica os carimbos de aprovação (PASS) ou motivos de rejeição cruzando as variantes com o cálculo de contaminação.
+O Mutect2 foi construído para ser hiper-sensível. Agora, o FilterMutectCalls atua como o juiz final, focando-se na especificidade. Ele junta o VCF bruto e a tabela de contaminação, aplicando filtros de qualidade (viés de cadeia de DNA, qualidade da base lida, contaminação) para carimbar as verdadeiras mutações do câncer com a etiqueta PASS e barrar o resto.
 
 ```bash
 ./gatk-4.2.2.0/gatk FilterMutectCalls \
@@ -152,7 +154,6 @@ Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica
 ```
 
 #### Avaliação de Contaminação Laboratorial:
-Calcula matematicamente a percentagem de ADN externo ou contaminação técnica na amostra.
 
 ##### Sumário do Tumor
 
