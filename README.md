@@ -209,5 +209,7 @@ Para a amostra WP190:
 ```bash
 zgrep -v "^#" WP190.filtered.vcf.gz | grep -w "PASS" | wc -l
 ```
-####_Exercício de Aprendizagem: Se remover a secção | grep -w "PASS" dos comandos acima, o terminal mostrará o total absoluto de variantes propostas inicialmente pelo Mutect2. A diferença dramática entre esse número bruto e as mutações PASS prova o excelente trabalho do FilterMutectCalls na limpeza de falsos positivos, variantes germinativas e ruído de laboratório!_
+#### Exercício de Aprendizagem: 
+ 
+  _Se remover a secção | grep -w "PASS" dos comandos acima, o terminal mostrará o total absoluto de variantes propostas inicialmente pelo Mutect2. A diferença dramática entre esse número bruto e as mutações PASS prova o excelente trabalho do FilterMutectCalls na limpeza de falsos positivos, variantes germinativas e ruído de laboratório!_
 
