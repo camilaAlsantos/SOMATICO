@@ -38,9 +38,7 @@ Esta é a forma mais fácil e rápida, pois não requer instalação no seu comp
 Se preferir rodar o pipeline na sua própria máquina (precisa do GATK e Samtools instalados), faça o clone direto do repositório através do terminal:
 
 ```bash
-# Clonar o repositório com os ficheiros BAM
 git clone https://github.com/renatopuga/somatico.git
-# Entrar na pasta do projeto
 cd somatico
 ```
 
