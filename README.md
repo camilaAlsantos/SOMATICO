@@ -18,13 +18,13 @@ Paciente 2: tumor_wp190.bam (Tumor) e tumor_wp191.bam (Normal)
 
 [x] Recursos Populacionais: Ficheiro af-only-gnomad-chr13-chr19.vcf.gz (usado para filtrar mutações comuns na população).
 
-### Passo 0: Obtendo os Ficheiros BAM (Amostras)
+### Passo 1: Obtendo os Ficheiros BAM (Amostras)
 
 Os ficheiros de sequenciação brutos (`.bam` e `.bai`) são pesados e já se encontram preparados e alojados no repositório oficial do curso. 
 
 Para aceder a estes dados, os alunos têm duas opções:
 
-### Opção A: Utilizar o GitHub Codespaces
+#### Opção A: Utilizar o GitHub Codespaces
 
 Esta é a forma mais fácil e rápida, pois não requer instalação no seu computador.
 
@@ -33,7 +33,7 @@ Esta é a forma mais fácil e rápida, pois não requer instalação no seu comp
 3. Mude para o separador **Codespaces** e clique no botão **`+`** ou **Create codespace on main**.
 4. *Dica de Ouro:* Nas configurações da máquina, escolha a opção **4-core** para que os algoritmos de alinhamento processem mais rapidamente.
 
-### Opção B: Clonar para o seu Computador Local (Linux/Mac)
+#### Opção B: Clonar para o seu Computador Local (Linux/Mac)
 
 Se preferir rodar o pipeline na sua própria máquina (precisa do GATK e Samtools instalados), faça o clone direto do repositório através do terminal:
 
@@ -42,9 +42,9 @@ git clone https://github.com/renatopuga/somatico.git
 cd somatico
 ```
 
-## Passo 1: Preparação
+## Passo 2: Preparação
 
-## Passo 1: Preparação do Genoma de Referência (hg19)
+### Preparação do Genoma de Referência (hg19)
 
 O algoritmo GATK é estrito quanto à formatação. Ele requer um mapa genómico perfeitamente limpo e indexado para alinhar as leituras de ADN.
 
@@ -60,28 +60,27 @@ wget -c https://hgdownload.soe.ucsc.edu/goldenPath/hg19/chromosomes/chr13.fa.gz
 
 Dica: O GATK prefere cromossomas numerados diretamente (ex: >13) em vez do prefixo da UCSC (ex: >chr13). O comando sed resolve isso automaticamente.
 
-```
-bash
+```bash
 zcat chr13.fa.gz chr19.fa.gz | sed -e "s/chr//g" > hg19.fa
 ```
 
 ### Gerar índices e dicionários:
 
-```
-bash
+```bash
 samtools faidx hg19.fa
 ./gatk-4.2.2.0/gatk CreateSequenceDictionary -R hg19.fa -O hg19.dict
 ./gatk-4.2.2.0/gatk ScatterIntervalsByNs -R hg19.fa -O hg19.interval_list -OT ACGT
 ```
 
-## Passo 2: Execução do Pipeline (Paciente WP017)
+## Passo 3: Execução do Pipeline 
+
+### Paciente WP017
 
 A análise "Padrão Ouro" compara o tecido tumoral com o tecido saudável do próprio paciente para filtrar, com elevada precisão, as mutações genéticas germinativas (de nascença).
 
-### Chamada de Variantes (Mutect2):
+#### Chamada de Variantes (Mutect2):
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk Mutect2 \
   -R hg19.fa \
   -I tumor_wp017.bam \
@@ -92,13 +91,12 @@ bash
   -L hg19.interval_list
 ```
 
-### Avaliação de Contaminação Laboratorial:
+#### Avaliação de Contaminação Laboratorial:
 Calcula matematicamente a percentagem de ADN externo ou contaminação técnica na amostra.
 
-# Sumário do Tumor
+##### Sumário do Tumor
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk GetPileupSummaries \
   -I tumor_wp017.bam \
   -V af-only-gnomad-chr13-chr19.vcf.gz \
@@ -106,10 +104,9 @@ bash
   -O WP017.table
 ```
 
-# Sumário do Tecido Normal
+##### Sumário do Tecido Normal
 
-```
-bash
+```bash
 ./gatk-4.2.2.0/gatk GetPileupSummaries \
   -I tumor_wp018.bam \
   -V af-only-gnomad-chr13-chr19.vcf.gz \
@@ -117,7 +114,7 @@ bash
   -O WP018.table
 ```
 
-# Cálculo Final
+##### Cálculo Final
 
 ```bash
 ./gatk-4.2.2.0/gatk CalculateContamination \
@@ -126,7 +123,7 @@ bash
   -O WP017.contamination.table
 ```
 
-## Filtragem Final:
+#### Filtragem Final:
 Aplica os carimbos de aprovação (PASS) ou motivos de rejeição cruzando as variantes com o cálculo de contaminação.
 
 ```bash
@@ -137,11 +134,11 @@ Aplica os carimbos de aprovação (PASS) ou motivos de rejeição cruzando as va
   -O WP017.filtered.vcf.gz
 ```
 
-## Passo 3: Analisar o Paciente WP190
+### Paciente WP190
 
 Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica. Para não tornar este documento demasiado longo, os comandos estão ocultos abaixo.
 
-### 1. Mutect2
+#### Chamada de Variantes (Mutect2):
 
 ```bash
 ./gatk-4.2.2.0/gatk Mutect2 \
@@ -154,7 +151,10 @@ Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica
   -L hg19.interval_list
 ```
 
-### 2. Resumos de Contaminação
+#### Avaliação de Contaminação Laboratorial:
+Calcula matematicamente a percentagem de ADN externo ou contaminação técnica na amostra.
+
+##### Sumário do Tumor
 
 ```bash
 ./gatk-4.2.2.0/gatk GetPileupSummaries \
@@ -164,6 +164,8 @@ Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica
   -O WP190.table
 ```
 
+##### Sumário do Tecido Normal
+
 ```bash
 ./gatk-4.2.2.0/gatk GetPileupSummaries \
   -I tumor_wp191.bam \
@@ -172,6 +174,8 @@ Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica
   -O WP191.table
  ``` 
 
+##### Cálculo Final
+
 ```bash
 ./gatk-4.2.2.0/gatk CalculateContamination \
   -I WP190.table \
@@ -179,7 +183,7 @@ Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica
   -O WP190.contamination.table
 ```
 
-### 3. Filtragem Final
+#### Filtragem Final
 
 ```bash
 ./gatk-4.2.2.0/gatk FilterMutectCalls \
