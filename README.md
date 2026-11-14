@@ -138,7 +138,7 @@ O Mutect2 foi construído para ser hiper-sensível. Agora, o FilterMutectCalls a
 
 ### Paciente WP190
 
-Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica. Para não tornar este documento demasiado longo, os comandos estão ocultos abaixo.
+Para analisar a segunda amostra, aplicamos exatamente a mesma lógica biológica. Para não tornar este documento demasiado longo, seguem os comandos abaixo.
 
 #### Chamada de Variantes (Mutect2):
 
