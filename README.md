@@ -3,7 +3,7 @@ Este repositório fornece um tutorial prático para realizar a chamada de varian
 Para manter o processamento leve e rápido em ambientes de estudo, o foco deste guia será exclusivamente nos cromossomas 13 e 19 do genoma humano (referência hg19), com dados provenientes do UCSC Genome Browser.
 
 ## _Índice_
-### Pré-Requisitos: https://gemini.google.com/#-pr%C3%A9-requisitos 
+### [Pré-Requisitos](https://gemini.google.com/#-pr%C3%A9-requisitos) 
 ### Passo 1: Preparação do Genoma (hg19) : https://gemini.google.com/#1%EF%B8%8F%E2%83%A3-passo-1-prepara%C3%A7%C3%A3o-do-genoma-de-refer%C3%AAncia-hg19
 ### Passo 2: Execução do Pipeline (WP017) : https://gemini.google.com/#2%EF%B8%8F%E2%83%A3-passo-2-execu%C3%A7%C3%A3o-do-pipeline-paciente-wp017
 ### Passo 3: Analisar o Paciente WP190 : https://gemini.google.com/#4%EF%B8%8F%E2%83%A3-passo-4-verifica%C3%A7%C3%A3o-de-resultados
@@ -31,7 +31,7 @@ Os ficheiros de sequenciação brutos (`.bam` e `.bai`) são pesados e já se en
 
 Para aceder a estes dados, os alunos têm duas opções:
 
-### Opção A: Utilizar o GitHub Codespaces (Recomendado)</b></summary>
+### Opção A: Utilizar o GitHub Codespaces
 <br>
 Esta é a forma mais fácil e rápida, pois não requer instalação no seu computador.
 
